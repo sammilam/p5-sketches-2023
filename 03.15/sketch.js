@@ -3,3 +3,9 @@ function setup(){
     background (0);
     console.log ("hello");
 }
+
+function draw(){
+
+    ellipse(mouseX, mouseY, 50);
+
+}
