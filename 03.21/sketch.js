@@ -1,7 +1,6 @@
 function setup(){
     createCanvas(1000, 1000);
     background ("white");
-    console.log ("hello");
     colorMode(HSB);
 }
 
