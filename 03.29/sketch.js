@@ -10,14 +10,14 @@ let timeOffset = 0;
 let myFont;
 
 function preload() {
-  myFont = loadFont('playfair.ttf');
+  myFont = loadFont('poppin.ttf');
 }
 function setup() {
   createCanvas(1000, 1000);
   colorMode(HSB, 360, 120, 100, 255);
   background(0, 0, 0);
-  
-  textSize(size);
+  textFont (myFont);
+    textSize(size);
 }
 
 function draw() {
