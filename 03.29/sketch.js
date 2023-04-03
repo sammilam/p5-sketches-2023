@@ -1,28 +1,38 @@
-let x, y;
-let size = 50;
-let size2 = 25;
+let rez1 = 0.003;
+let rez2 = 0.003;
+let rez3 = 0.003;
+
+let size = 30;
+let lets = ['g', 'G'];
+let gap = 10;
+
+let timeOffset = 0;
 
 function setup() {
   createCanvas(1000, 1000);
-  x = width / 2;
-  y = height / 2;
-  noStroke();
+  colorMode(HSB, 360, 120, 100, 255);
+  background(0, 0, 0);
+  textSize(size);
 }
 
 function draw() {
-  background("#E8B4BC");
-  fill("#3a3238");
-  ellipse(x, y, size);
-  fill("#E8B4BC");
-  ellipse(x, y, size2);
-  fill("#E8B4BC");
-  triangle(x, y + 10, x + size, y - size, x + size, y + 10);
-  fill("#3a3238");
-  rect(x, y, 80+size, 20);
+  background(0);
 
-  size += 5;
-  size2 += 0.25;
-  if (size >= min(width, height)) {
-    size = 50;
+  for (x= 0; x<width; x+=size+gap){
+    for (y=0; y<height; y+=size+gap){
+      n1 = noise(x*rez1, y*rez1, timeOffset);
+      n2 = noise(x*rez2, y*rez2+10000, timeOffset);
+      n3 = noise(x*rez3, y*rez3+20000, timeOffset);
+      fill(n3*360, 100, 90);
+      push();
+      translate (x, y);
+      rotate((n2-0.5)*PI);
+      text (lets[floor(n1*2)], 0, 0)
+      pop();
+    }
   }
+  
+  timeOffset += 0.05; 
 }
+
+// reference: https://www.youtube.com/watch?v=cbKG6n7UYsE&ab_channel=Steve%27sMakerspace
