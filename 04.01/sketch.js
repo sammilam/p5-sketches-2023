@@ -1,10 +1,10 @@
-let numLayers = 10;
+let numLayers = 2;
 let angle = 0;
 let speed = 0.1;
 let gText;
 
 function preload() {
-  gText = loadFont('poppin.ttf');
+  gText = loadFont('Monoton.ttf');
 }
 
 function setup() {
