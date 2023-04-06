@@ -4,7 +4,7 @@ let speed = 0.1;
 let gText;
 
 function preload() {
-  gText = loadFont('poppin.ttf');
+  gText = loadFont('uni.ttf');
 }
 
 function setup() {
