@@ -1,7 +1,6 @@
 let gText;
 let x = 0;
 let y = 0;
-let glowSize = 40; // size of the glow effect
 
 function preload() {
   gText = loadFont('poppin.ttf');
@@ -23,7 +22,6 @@ function draw() {
   // draw the glowing effect
   noStroke();
   fill(color + "88"); // add alpha to the color for transparency
-  ellipse(x, y, glowSize);
 
   // draw the G on top of the glowing effect
   stroke("black");
