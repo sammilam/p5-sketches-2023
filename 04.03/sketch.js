@@ -22,10 +22,11 @@ function draw() {
     for (let j = 0; j < numLayers; j++) {
       let colPos = map(j, 0, numLayers - 1, 0, width);
       push();
+      translate(colPos, layerPos);
       rotateX(angle + i * 20);
-      let r = map(i, 0, numLayers, 255, 0);
-      let g = map(j, 0, numLayers, 0, 255);
-      let b = map(i + j, 0, numLayers * 2, 0, 255);
+      let r = map(i, 0, numLayers - 1, 255, 0);
+      let g = map(j, 0, numLayers - 1, 0, 255);
+      let b = map(i + j, 0, numLayers * 2 - 2, 255, 0);
       fill(r, g, b);
       text("G", 0, 0);
       pop();
@@ -37,3 +38,4 @@ function draw() {
     angle = 0;
   }
 }
+
