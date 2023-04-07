@@ -1,6 +1,6 @@
 let numLayers = 5;
 let angle = 0;
-let speed = 0.025;
+let speed = 0.01;
 let gText;
 let x = -500;
 let y = -500;

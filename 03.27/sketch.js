@@ -1,8 +1,9 @@
 let gs = [];
 let colors = ["f5e3e0", "e8b4bc", "d282a6", "6e4555"];
+let c;
 
 function setup() {
-  createCanvas(1000, 1000);
+  c = createCanvas(1000, 1000);
   textSize(50);
 
   // create 100 "G" objects
@@ -21,7 +22,6 @@ function draw() {
   // calculate the rotation angle based on the mouse position
   let angle = map(mouseX, 0, width, -180, 180);
 
-  // rotate the coordinate system around the mouse position
   translate(mouseX, mouseY);
   rotate(angle);
   translate(-mouseX, -mouseY);
@@ -50,4 +50,9 @@ class G {
     text("G", 0, 0);
     pop();
   }
+}
+
+
+function mousePressed() {
+  saveCanvas(c, "G_pulse", "png");
 }

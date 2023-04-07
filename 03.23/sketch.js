@@ -4,12 +4,18 @@ let y = 0;
 let click = false;
 
 function setup() {
-    createCanvas(windowWidth, windowHeight);
+    createCanvas(1000, 1000);
     angleMode(DEGREES);
+    
+
 }
 
 function draw() {
     background("#3a3238");
+    textSize(60);
+    textFont('Georgia');
+    fill("white");
+    text("Click!", 30, 100);
 
     translate(width / 2, height / 2);
     if (click == true) {
@@ -30,6 +36,7 @@ function letter() {
     fill("#E8B4BC");
     rect(x, y, 230, 55);
     rect(x + 190, y, 58, 230);
+
 }
 
 function mouseClicked() {
