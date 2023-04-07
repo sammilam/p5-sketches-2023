@@ -1,72 +1,87 @@
-let font;
-let fallingGs = [];
+let canvasSize = 1000;
+let gridSize = 50;
+let gText;
+let numCols = canvasSize / gridSize;
+let numRows = canvasSize / gridSize;
+let textOffset = gridSize / 2;
+let textArray = ["G", "G", "G", "G", "G", "G", "G", "G", "G", "G"];
+let angleArray = [];
+let maxLetterSize = 50;
+let minLetterSize = 10;
 
 function preload() {
-  font = loadFont("Bowl.ttf");
+  gText = loadFont("Bowl.ttf");
 }
 
-function setup() {
-  createCanvas(1000, 1000);
-  textAlign(CENTER, CENTER);
-  textFont(font);
 
-  bounds = font.textBounds("G", 0, 0);
-  x = width / 2 - bounds.w / 2;
-  y = height / 2 - bounds.h / 2;
+function setup() {
+  createCanvas(canvasSize, canvasSize);
+  textAlign(CENTER, CENTER);
+  textFont(gText);
+  textSize(gridSize);
+  for (let i = 0; i < numCols * numRows; i++) {
+    angleArray[i] = random(0, 360);
+  }
 }
 
 function draw() {
-  background("white");
-  
-  // Add a new falling "G" every frame with a random x position, size, and color
-  fallingGs.push({
-    x: random(width),
-    y: -100,
-    speed: random(2, 5),
-    size: random(50, 200),
-    color: color(random(90, 200), random(100, 200), random(190, 255))
-  });
-  
-  // Draw each falling "G" and update its position
-  for (let i = 0; i < fallingGs.length; i++) {
-    let g = fallingGs[i];
-    textSize(g.size);
-    fill(g.color);
-    text("G", g.x, g.y);
-    
-    // Move the falling "G" away from the mouse when it gets too close
-    let distToMouse = dist(g.x, g.y, mouseX, mouseY);
-    if (distToMouse < 200) {
-      let avoidX = map(mouseX - g.x, -200, 200, -10, 10);
-      let avoidY = map(mouseY - g.y, -200, 200, -10, 10);
-      g.x -= avoidX;
-      g.y -= avoidY;
-    } else {
-      g.y += g.speed;
-    }
-    
-    // Stop the falling "G" when it reaches the bottom of the screen
-    if (g.y + g.size / 2 >= height) {
-      g.y = height - g.size / 2;
-      g.speed = 0;
+  background(255);
+
+  let letterSize = map(mouseX, 0, canvasSize, minLetterSize, maxLetterSize);
+
+  for (let i = 0; i < numCols; i++) {
+    for (let j = 0; j < numRows; j++) {
+      let x = i * gridSize + textOffset;
+      let y = j * gridSize + textOffset;
+      let textIndex = (i + j) % textArray.length;
+      let letter = textArray[textIndex];
+      let angleIndex = i * numRows + j;
+      let angle = angleArray[angleIndex];
+      push();
+      translate(x, y);
+      rotate(radians(angle));
+      fill(255);
+      textSize(letterSize);
+      text(letter, 0, 0);
+      pop();
     }
   }
 
-  if (
-    mouseX >= bounds.x &&
-    mouseX <= bounds.x + bounds.w &&
-    mouseY >= bounds.y &&
-    mouseY <= bounds.y + bounds.h
-  ) {
-    x += random(-5, 5);
-    y += random(-5, 5);
+  let lightX = map(mouseX, 0, canvasSize, -1, 1);
+  let lightY = map(mouseY, 0, canvasSize, -1, 1);
+  let lightDirection = createVector(lightX, lightY, 1).normalize();
+  let lightColor = color(255, 200, 100);
+  let ambientColor = color(50, 50, 50);
+  applyLighting(lightDirection, lightColor, ambientColor);
+}
+
+function applyLighting(lightDirection, lightColor, ambientColor) {
+  for (let i = 0; i < numCols; i++) {
+    for (let j = 0; j < numRows; j++) {
+      let x = i * gridSize + textOffset;
+      let y = j * gridSize + textOffset;
+      let textIndex = (i + j) % textArray.length;
+      let letter = textArray[textIndex];
+      let angleIndex = i * numRows + j;
+      let angle = angleArray[angleIndex];
+      let normal = createVector(cos(radians(angle)), sin(radians(angle)), 1);
+      let lighting = getLighting(normal, lightDirection, lightColor, ambientColor);
+      fill(lighting);
+      let letterSize = map(mouseX, 0, canvasSize, minLetterSize, maxLetterSize);
+      push();
+      translate(x, y);
+      rotate(radians(angle));
+      textSize(letterSize);
+      text(letter, 0, 0);
+      pop();
+    }
   }
-
-  // Remove the falling "G"s that have stopped falling
-  fallingGs = fallingGs.filter(g => g.speed > 0);
 }
 
-
-function mousePressed() {
-  saveCanvas(c, "falling", "png");
+function getLighting(normal, lightDirection, lightColor, ambientColor) {
+  let intensity = normal.dot(lightDirection);
+  intensity = constrain(intensity, 0, 1);
+  let lighting = lerpColor(ambientColor, lightColor, intensity);
+  return lighting;
 }
+
