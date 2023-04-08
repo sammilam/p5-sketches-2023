@@ -1,37 +1,55 @@
-let circleX, circleY, circleDiameter;
+let particles = [];
 
 function setup() {
   createCanvas(400, 400);
-  circleX = 150;
-  circleY = 150;
-  circleDiameter = 200;
+  textSize(32);
+  textAlign(CENTER, CENTER);
 }
 
 function draw() {
-  background(220);
+  background(255);
+  for (let i = 0; i < particles.length; i++) {
+    let p = particles[i];
+    p.update();
+    p.display();
+  }
 
-  // Set circle stroke weight and color
-  strokeWeight(10);
-  stroke(0);
+  // add new particles with a small probability
+  if (random() < 0.1) {
+    particles.push(new Particle());
+  }
 
-  // Draw the main circle
-  circle(circleX, circleY, circleDiameter);
+  // remove particles that are off the screen
+  for (let i = particles.length - 1; i >= 0; i--) {
+    let p = particles[i];
+    if (p.isOffScreen()) {
+      particles.splice(i, 1);
+    }
+  }
+}
 
-  // Draw the top semicircle
-  let arcStart = map(circleDiameter, 200, 100, 0, PI);
-  let arcEnd = PI;
-  arc(circleX, circleY - circleDiameter/2, circleDiameter/2, circleDiameter/2, arcStart, arcEnd);
+class Particle {
+  constructor() {
+    this.position = createVector(width / 2, height / 2);
+    this.velocity = p5.Vector.random2D().mult(random(1, 5));
+    this.acceleration = createVector(0, 0.1);
+    this.lifespan = 255;
+    this.text = "G";
+  }
 
-  // Draw the bottom semicircle
-  arcStart = 0;
-  arcEnd = map(circleDiameter, 200, 100, 0, PI);
-  arc(circleX, circleY + circleDiameter/2, circleDiameter/2, circleDiameter/2, arcStart, arcEnd);
+  update() {
+    this.velocity.add(this.acceleration);
+    this.position.add(this.velocity);
+    this.lifespan -= 2;
+  }
 
-  // Shrink circle size
-  circleDiameter -= 10;
+  display() {
+    fill(0, this.lifespan);
+    noStroke();
+    text(this.text, this.position.x, this.position.y);
+  }
 
-  // If circle is too small, reset size
-  if (circleDiameter < 100) {
-    circleDiameter = 200;
+  isOffScreen() {
+    return this.position.x < -50 || this.position.x > width + 50 || this.position.y < -50 || this.position.y > height + 50;
   }
 }
