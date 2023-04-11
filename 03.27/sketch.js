@@ -6,7 +6,6 @@ function setup() {
   c = createCanvas(1000, 1000);
   textSize(50);
 
-  // create 100 "G" objects
   for (let i = 0; i < 500; i++) {
     let x = random(width);
     let y = random(height);

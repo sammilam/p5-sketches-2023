@@ -6,7 +6,7 @@ let click = false;
 function setup() {
     createCanvas(1000, 1000);
     angleMode(DEGREES);
-    
+
 
 }
 
@@ -31,7 +31,6 @@ function letter() {
     ellipse(x, y, 500);
     fill("#3a3238");
     ellipse(x, y, 350);
-    // stroke("white");
     triangle(x, y + 30, x + 300, -200, x + 400, 30);
     fill("#E8B4BC");
     rect(x, y, 230, 55);

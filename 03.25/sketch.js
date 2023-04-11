@@ -33,7 +33,6 @@ function draw() {
 }
 
 function letter(x, y) {
-    // fill(c);
     ellipse(x, y, 500);
     push();
     noStroke();
@@ -41,7 +40,6 @@ function letter(x, y) {
     ellipse(x, y, 350);
     triangle(x, y + 30, x + 300, 0, x + 5000, 0);
     pop();
-    // fill(c);
     rect(x, y, 230, 55);
     rect(x + 190, y, 58, 230);
 }

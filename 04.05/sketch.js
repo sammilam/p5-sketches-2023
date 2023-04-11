@@ -1,17 +1,18 @@
 let gText;
 let angle = 0;
 let angleSpeed = 0.05;
-let c;
 let x = 0;
 let y = 0;
 let fr = 25;
+let c;
+let l;
 
 function preload() {
   gText = loadFont('Bowl.ttf');
 }
 
 function setup() {
-  c = createCanvas(1000, 1000);
+  l = createCanvas(1000, 1000);
   frameRate(fr);
   textAlign(CENTER, CENTER);
   textSize(200);
@@ -28,9 +29,9 @@ function draw() {
     for (let col = 0; col < gridSize; col++) {
       const x = (col - (gridSize - 1) / 2) * gridSpacing;
       const y = (row - (gridSize - 1) / 2) * gridSpacing;
-      
+
       singleG(x, y);
-      rotate (90);
+      rotate(90);
     }
   }
 }
@@ -57,5 +58,5 @@ function singleG(x, y) {
 }
 
 function mousePressed() {
-  saveCanvas(c, "swing", "png");
+  saveCanvas(l, "swing", "png");
 }

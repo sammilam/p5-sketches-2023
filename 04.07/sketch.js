@@ -8,14 +8,14 @@ let textArray = ["G", "G", "G", "G", "G", "G", "G", "G", "G", "G"];
 let angleArray = [];
 let maxLetterSize = 50;
 let minLetterSize = 10;
-
+let c;
 function preload() {
   gText = loadFont("Bowl.ttf");
 }
 
 
 function setup() {
-  createCanvas(canvasSize, canvasSize);
+  c = createCanvas(canvasSize, canvasSize);
   textAlign(CENTER, CENTER);
   textFont(gText);
   textSize(gridSize);
@@ -85,3 +85,7 @@ function getLighting(normal, lightDirection, lightColor, ambientColor) {
   return lighting;
 }
 
+
+function mousePressed() {
+  saveCanvas(c, "yellow", "png");
+}

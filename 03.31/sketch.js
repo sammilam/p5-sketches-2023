@@ -16,12 +16,12 @@ function setup() {
 }
 
 function draw() {
-  let colors = ["#1b998b", "#2d3047", "#fffd82", "#ff9b71", "#e84855"]; // an array of colors
-  let index = floor(random(0, colors.length)); // pick a random index from the array
+  let colors = ["#1b998b", "#2d3047", "#fffd82", "#ff9b71", "#e84855"]; 
+  let index = floor(random(0, colors.length)); 
   let color = colors[index]; // get the color at the index
 
   noStroke();
-  fill(color + "88"); 
+  fill(color + "88");
   stroke("black");
   strokeWeight(5);
   fill(color);

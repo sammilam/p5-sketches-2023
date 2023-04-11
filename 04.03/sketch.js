@@ -20,13 +20,13 @@ function setup() {
 }
 
 function draw() {
-    for (let i = 0; i < numLayers; i++) {
+  for (let i = 0; i < numLayers; i++) {
     let layerPos = map(i, 0, numLayers - 1, 0, height);
     for (let j = 0; j < numLayers; j++) {
       let colPos = map(j, 0, numLayers - 1, 0, width);
       push();
       translate(colPos, layerPos);
-      rotateX(angle + i );
+      rotateX(angle + i);
       let r = map(i, 0, numLayers - 1, 255, 0);
       let g = map(j, 0, numLayers - 1, 0, 255);
       let b = map(i + j, 0, numLayers * 2 - 2, 255, 0);
